@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, ScrollView, View } from 'react-native';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { I18nProvider } from './src/i18n/context';
 import { Header } from './src/components/Header';
 import { Hero } from './src/components/Hero';
@@ -14,6 +14,7 @@ import { Contact } from './src/components/Contact';
 import { Footer } from './src/components/Footer';
 import { ServicesPage } from './src/components/ServicesPage';
 import { theme } from './src/theme';
+import { initPostHog, trackPageView } from './src/lib/posthog';
 
 export default function App() {
   const scrollViewRef = useRef<ScrollView>(null);
@@ -27,25 +28,52 @@ export default function App() {
   const [showServicesPage, setShowServicesPage] = useState(false);
   const [showCarnivalPage, setShowCarnivalPage] = useState(false);
 
+  // Initialize PostHog on mount
+  useEffect(() => {
+    initPostHog();
+    trackPageView('home');
+  }, []);
+
   const scrollToSection = (section: keyof typeof sectionY, offset: number = 20) => {
     const y = sectionY[section];
     const scrollY = Math.max(0, y - offset);
     scrollViewRef.current?.scrollTo({ y: scrollY, animated: true });
   };
 
-  const scrollToHome = () => scrollToSection('home', 0);
-  const scrollToWhyJoin = () => scrollToSection('whyJoin');
-  const scrollToConnect = () => scrollToSection('connect');
-  const scrollToCarnival = () => setShowCarnivalPage(true);
-  const scrollToTeam = () => scrollToSection('team');
-  const scrollToRegister = () => scrollToSection('register');
+  const scrollToHome = () => {
+    trackPageView('home');
+    scrollToSection('home', 0);
+  };
+  const scrollToWhyJoin = () => {
+    trackPageView('why_join');
+    scrollToSection('whyJoin');
+  };
+  const scrollToConnect = () => {
+    trackPageView('connect');
+    scrollToSection('connect');
+  };
+  const scrollToCarnival = () => {
+    trackPageView('carnival');
+    setShowCarnivalPage(true);
+  };
+  const scrollToTeam = () => {
+    trackPageView('team');
+    scrollToSection('team');
+  };
+  const scrollToRegister = () => {
+    trackPageView('register');
+    scrollToSection('register');
+  };
 
   if (showServicesPage) {
     return (
       <I18nProvider>
         <View style={styles.container}>
           <StatusBar style="dark" />
-          <ServicesPage onBack={() => setShowServicesPage(false)} />
+          <ServicesPage onBack={() => {
+            trackPageView('home');
+            setShowServicesPage(false);
+          }} />
         </View>
       </I18nProvider>
     );
@@ -56,7 +84,10 @@ export default function App() {
       <I18nProvider>
         <View style={styles.container}>
           <StatusBar style="dark" />
-          <Carnival onBack={() => setShowCarnivalPage(false)} />
+          <Carnival onBack={() => {
+            trackPageView('home');
+            setShowCarnivalPage(false);
+          }} />
         </View>
       </I18nProvider>
     );
@@ -105,7 +136,10 @@ export default function App() {
           >
             <Connect />
           </View>
-          <CommunityServices onShowMore={() => setShowServicesPage(true)} />
+          <CommunityServices onShowMore={() => {
+            trackPageView('services');
+            setShowServicesPage(true);
+          }} />
           <View
             onLayout={(event) => {
               const { y } = event.nativeEvent.layout;

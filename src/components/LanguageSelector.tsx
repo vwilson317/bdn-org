@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Modal, Pressable } from 'reac
 import { useI18n } from '../i18n/context';
 import { Language } from '../i18n/translations';
 import { theme } from '../theme';
+import { trackEvent } from '../lib/posthog';
 
 const languages: { code: Language; name: string; flag: string }[] = [
   { code: 'en', name: 'English', flag: '🇺🇸' },
@@ -18,6 +19,10 @@ export function LanguageSelector() {
   const currentLang = languages.find(l => l.code === language) || languages[0];
 
   const handleLanguageSelect = (lang: Language) => {
+    trackEvent('language_changed', {
+      from_language: language,
+      to_language: lang,
+    });
     setLanguage(lang);
     setModalVisible(false);
   };

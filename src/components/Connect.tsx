@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Linking, Platform, Animated }
 import { FontAwesome5, FontAwesome } from '@expo/vector-icons';
 import { theme } from '../theme';
 import { useI18n } from '../i18n/context';
+import { trackEvent } from '../lib/posthog';
 
 interface SocialLink {
   name: string;
@@ -113,10 +114,19 @@ function SocialCard({ link, index, onPress }: { link: SocialLink; index: number;
 export function Connect() {
   const { t } = useI18n();
   
-  const handleSocialClick = (url?: string) => {
-    if (url) {
-      Linking.openURL(url).catch((err) => {
+  const handleSocialClick = (link: SocialLink) => {
+    if (link.url) {
+      trackEvent('social_link_clicked', {
+        platform: link.name,
+        url: link.url,
+      });
+      Linking.openURL(link.url).catch((err) => {
         console.error('Failed to open link:', err);
+      });
+    } else {
+      trackEvent('social_link_clicked', {
+        platform: link.name,
+        has_url: false,
       });
     }
   };
@@ -134,7 +144,7 @@ export function Connect() {
               key={index}
               link={link}
               index={index}
-              onPress={() => handleSocialClick(link.url)}
+              onPress={() => handleSocialClick(link)}
             />
           ))}
         </View>

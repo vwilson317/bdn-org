@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Linking } from 'react-native';
 import { theme } from '../theme';
 import { useI18n } from '../i18n/context';
+import { trackEvent } from '../lib/posthog';
 
 const REGISTRATION_FORM_URL = 'https://form.typeform.com/to/dAkHiZxN';
 
@@ -12,10 +13,16 @@ export function Contact() {
     try {
       const supported = await Linking.canOpenURL(REGISTRATION_FORM_URL);
       if (supported) {
+        trackEvent('registration_form_opened', {
+          form_url: REGISTRATION_FORM_URL,
+        });
         await Linking.openURL(REGISTRATION_FORM_URL);
       }
     } catch (error) {
       console.error('Error opening registration form:', error);
+      trackEvent('registration_form_error', {
+        error: error instanceof Error ? error.message : 'Unknown error',
+      });
     }
   };
 
