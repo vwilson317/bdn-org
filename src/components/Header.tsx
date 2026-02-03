@@ -8,6 +8,7 @@ interface HeaderProps {
   onHomePress?: () => void;
   onWhyJoinPress?: () => void;
   onConnectPress?: () => void;
+  onCarnivalPress?: () => void;
   onTeamPress?: () => void;
   onRegisterPress?: () => void;
 }
@@ -15,7 +16,8 @@ interface HeaderProps {
 export function Header({ 
   onHomePress, 
   onWhyJoinPress, 
-  onConnectPress, 
+  onConnectPress,
+  onCarnivalPress,
   onTeamPress,
   onRegisterPress
 }: HeaderProps) {
@@ -36,6 +38,7 @@ export function Header({
     { label: t.header.home, onPress: onHomePress },
     { label: t.header.whyJoin, onPress: onWhyJoinPress },
     { label: t.header.connect, onPress: onConnectPress },
+    { label: t.header.carnival, onPress: onCarnivalPress },
     { label: t.header.team, onPress: onTeamPress },
     { label: isMobile ? t.header.registerServiceShort : t.header.registerService, onPress: onRegisterPress },
   ];

@@ -7,6 +7,7 @@ import { Hero } from './src/components/Hero';
 import { Announcements } from './src/components/Announcements';
 import { WhyJoin } from './src/components/WhyJoin';
 import { Connect } from './src/components/Connect';
+import { Carnival } from './src/components/Carnival';
 import { CommunityServices } from './src/components/CommunityServices';
 import { Team } from './src/components/Team';
 import { Contact } from './src/components/Contact';
@@ -24,6 +25,7 @@ export default function App() {
     register: 0,
   });
   const [showServicesPage, setShowServicesPage] = useState(false);
+  const [showCarnivalPage, setShowCarnivalPage] = useState(false);
 
   const scrollToSection = (section: keyof typeof sectionY, offset: number = 20) => {
     const y = sectionY[section];
@@ -34,6 +36,7 @@ export default function App() {
   const scrollToHome = () => scrollToSection('home', 0);
   const scrollToWhyJoin = () => scrollToSection('whyJoin');
   const scrollToConnect = () => scrollToSection('connect');
+  const scrollToCarnival = () => setShowCarnivalPage(true);
   const scrollToTeam = () => scrollToSection('team');
   const scrollToRegister = () => scrollToSection('register');
 
@@ -48,6 +51,17 @@ export default function App() {
     );
   }
 
+  if (showCarnivalPage) {
+    return (
+      <I18nProvider>
+        <View style={styles.container}>
+          <StatusBar style="dark" />
+          <Carnival onBack={() => setShowCarnivalPage(false)} />
+        </View>
+      </I18nProvider>
+    );
+  }
+
   return (
     <I18nProvider>
       <View style={styles.container}>
@@ -56,6 +70,7 @@ export default function App() {
           onHomePress={scrollToHome}
           onWhyJoinPress={scrollToWhyJoin}
           onConnectPress={scrollToConnect}
+          onCarnivalPress={scrollToCarnival}
           onTeamPress={scrollToTeam}
           onRegisterPress={scrollToRegister}
         />

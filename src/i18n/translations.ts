@@ -6,6 +6,7 @@ export interface Translations {
     home: string;
     whyJoin: string;
     connect: string;
+    carnival: string;
     team: string;
     registerService: string;
     registerServiceShort: string;
@@ -125,6 +126,48 @@ export interface Translations {
     button: string;
   };
   
+  // Contact
+  contact: {
+    title: string;
+    description: string;
+    button: string;
+  };
+  
+  // Carnival
+  carnival: {
+    title: string;
+    subtitle: string;
+    aboutBlocos: {
+      title: string;
+      description: string;
+    };
+    borario: {
+      title: string;
+      description: string;
+      visitWebsite: string;
+    };
+    instagram: {
+      title: string;
+      description: string;
+      blocosRio: {
+        name: string;
+        handle: string;
+      };
+      blocosRJ: {
+        name: string;
+        handle: string;
+      };
+      carnavalRio: {
+        name: string;
+        handle: string;
+      };
+      rioCarnival: {
+        name: string;
+        handle: string;
+      };
+    };
+  };
+  
   // Footer
   footer: {
     description: string;
@@ -139,6 +182,7 @@ export const translations: Record<Language, Translations> = {
       home: 'Home',
       whyJoin: 'Why Join',
       connect: 'Connect',
+      carnival: 'Carnival',
       team: 'Team',
       registerService: 'Register Community Service',
       registerServiceShort: 'Register Service',
@@ -241,6 +285,39 @@ export const translations: Record<Language, Translations> = {
       description: 'Offer your services to members of the community. These will be reviewed by the team and we will contact you.',
       button: 'Register Your Service',
     },
+    carnival: {
+      title: 'Rio Carnival 2026',
+      subtitle: 'Everything you need to know about Rio Carnival and blocos',
+      aboutBlocos: {
+        title: 'About Blocos',
+        description: 'Blocos are street parties that are the heart of Rio Carnival. These neighborhood celebrations bring together locals and visitors for music, dancing, and pure joy. Each bloco has its own unique character, music style, and route through the city streets. They typically start in the weeks leading up to Carnival and continue throughout the official Carnival period.',
+      },
+      borario: {
+        title: 'Borario.com',
+        description: 'For the most comprehensive and up-to-date information about blocos, schedules, routes, and everything Carnival-related in Rio, visit borario.com. This website is your essential resource for planning your Carnival experience.',
+        visitWebsite: 'Visit Borario.com',
+      },
+      instagram: {
+        title: 'Helpful Instagram Pages',
+        description: 'Follow these Instagram accounts to stay updated on bloco schedules, locations, and Carnival events:',
+        blocosRio: {
+          name: 'Blocos Rio de Janeiro',
+          handle: 'blocosriodejaneiro',
+        },
+        blocosRJ: {
+          name: 'Blocos RJ',
+          handle: 'blocosrj',
+        },
+        carnavalRio: {
+          name: 'Carnaval Rio de Janeiro',
+          handle: 'carnavalriodejaneiro',
+        },
+        rioCarnival: {
+          name: 'Rio Carnival',
+          handle: 'riocarnival',
+        },
+      },
+    },
     footer: {
       description: 'Building connections, sharing knowledge, and creating opportunities for digital nomads in beautiful Brazil.',
       legalPrivacy: 'Legal & Privacy',
@@ -253,6 +330,7 @@ export const translations: Record<Language, Translations> = {
       home: 'Início',
       whyJoin: 'Por Que Participar',
       connect: 'Conectar',
+      carnival: 'Carnaval',
       team: 'Equipe',
       registerService: 'Registrar Serviço Comunitário',
       registerServiceShort: 'Registrar Serviço',
@@ -355,6 +433,39 @@ export const translations: Record<Language, Translations> = {
       description: 'Ofereça seus serviços aos membros da comunidade. Estes serão revisados pela equipe e entraremos em contato com você.',
       button: 'Registrar Seu Serviço',
     },
+    carnival: {
+      title: 'Carnaval do Rio 2026',
+      subtitle: 'Tudo o que você precisa saber sobre o Carnaval do Rio e os blocos',
+      aboutBlocos: {
+        title: 'Sobre os Blocos',
+        description: 'Blocos são festas de rua que são o coração do Carnaval do Rio. Essas celebrações de bairro reúnem locais e visitantes para música, dança e pura alegria. Cada bloco tem seu próprio caráter único, estilo musical e rota pelas ruas da cidade. Eles geralmente começam nas semanas que antecedem o Carnaval e continuam durante todo o período oficial do Carnaval.',
+      },
+      borario: {
+        title: 'Borario.com',
+        description: 'Para as informações mais abrangentes e atualizadas sobre blocos, horários, rotas e tudo relacionado ao Carnaval no Rio, visite borario.com. Este site é seu recurso essencial para planejar sua experiência no Carnaval.',
+        visitWebsite: 'Visitar Borario.com',
+      },
+      instagram: {
+        title: 'Páginas Úteis do Instagram',
+        description: 'Siga estas contas do Instagram para se manter atualizado sobre horários de blocos, locais e eventos do Carnaval:',
+        blocosRio: {
+          name: 'Blocos Rio de Janeiro',
+          handle: 'blocosriodejaneiro',
+        },
+        blocosRJ: {
+          name: 'Blocos RJ',
+          handle: 'blocosrj',
+        },
+        carnavalRio: {
+          name: 'Carnaval Rio de Janeiro',
+          handle: 'carnavalriodejaneiro',
+        },
+        rioCarnival: {
+          name: 'Rio Carnival',
+          handle: 'riocarnival',
+        },
+      },
+    },
     footer: {
       description: 'Construindo conexões, compartilhando conhecimento e criando oportunidades para nômades digitais no belo Brasil.',
       legalPrivacy: 'Legal e Privacidade',
@@ -367,6 +478,7 @@ export const translations: Record<Language, Translations> = {
       home: 'Inicio',
       whyJoin: 'Por Qué Unirse',
       connect: 'Conectar',
+      carnival: 'Carnaval',
       team: 'Equipo',
       registerService: 'Registrar Servicio Comunitario',
       registerServiceShort: 'Registrar Servicio',
@@ -469,6 +581,39 @@ export const translations: Record<Language, Translations> = {
       description: 'Ofrece tus servicios a los miembros de la comunidad. Estos serán revisados por el equipo y nos pondremos en contacto contigo.',
       button: 'Registrar Tu Servicio',
     },
+    carnival: {
+      title: 'Carnaval de Río 2026',
+      subtitle: 'Todo lo que necesitas saber sobre el Carnaval de Río y los blocos',
+      aboutBlocos: {
+        title: 'Sobre los Blocos',
+        description: 'Los blocos son fiestas callejeras que son el corazón del Carnaval de Río. Estas celebraciones de barrio reúnen a locales y visitantes para música, baile y pura alegría. Cada bloco tiene su propio carácter único, estilo musical y ruta por las calles de la ciudad. Típicamente comienzan en las semanas previas al Carnaval y continúan durante todo el período oficial del Carnaval.',
+      },
+      borario: {
+        title: 'Borario.com',
+        description: 'Para la información más completa y actualizada sobre blocos, horarios, rutas y todo lo relacionado con el Carnaval en Río, visita borario.com. Este sitio web es tu recurso esencial para planificar tu experiencia en el Carnaval.',
+        visitWebsite: 'Visitar Borario.com',
+      },
+      instagram: {
+        title: 'Páginas Útiles de Instagram',
+        description: 'Sigue estas cuentas de Instagram para mantenerte actualizado sobre horarios de blocos, ubicaciones y eventos del Carnaval:',
+        blocosRio: {
+          name: 'Blocos Rio de Janeiro',
+          handle: 'blocosriodejaneiro',
+        },
+        blocosRJ: {
+          name: 'Blocos RJ',
+          handle: 'blocosrj',
+        },
+        carnavalRio: {
+          name: 'Carnaval Rio de Janeiro',
+          handle: 'carnavalriodejaneiro',
+        },
+        rioCarnival: {
+          name: 'Rio Carnival',
+          handle: 'riocarnival',
+        },
+      },
+    },
     footer: {
       description: 'Construyendo conexiones, compartiendo conocimiento y creando oportunidades para nómadas digitales en la hermosa Brasil.',
       legalPrivacy: 'Legal y Privacidad',
@@ -481,6 +626,7 @@ export const translations: Record<Language, Translations> = {
       home: 'Accueil',
       whyJoin: 'Pourquoi Rejoindre',
       connect: 'Se Connecter',
+      carnival: 'Carnaval',
       team: 'Équipe',
       registerService: 'Enregistrer un Service Communautaire',
       registerServiceShort: 'Enregistrer Service',
@@ -582,6 +728,39 @@ export const translations: Record<Language, Translations> = {
       title: 'Enregistrer un Service Communautaire',
       description: 'Offrez vos services aux membres de la communauté. Ceux-ci seront examinés par l\'équipe et nous vous contacterons.',
       button: 'Enregistrer Votre Service',
+    },
+    carnival: {
+      title: 'Carnaval de Rio 2026',
+      subtitle: 'Tout ce que vous devez savoir sur le Carnaval de Rio et les blocos',
+      aboutBlocos: {
+        title: 'À Propos des Blocos',
+        description: 'Les blocos sont des fêtes de rue qui sont au cœur du Carnaval de Rio. Ces célébrations de quartier rassemblent les habitants et les visiteurs pour la musique, la danse et la pure joie. Chaque bloco a son propre caractère unique, son style musical et son itinéraire à travers les rues de la ville. Ils commencent généralement dans les semaines précédant le Carnaval et se poursuivent tout au long de la période officielle du Carnaval.',
+      },
+      borario: {
+        title: 'Borario.com',
+        description: 'Pour les informations les plus complètes et à jour sur les blocos, les horaires, les itinéraires et tout ce qui concerne le Carnaval à Rio, visitez borario.com. Ce site Web est votre ressource essentielle pour planifier votre expérience du Carnaval.',
+        visitWebsite: 'Visiter Borario.com',
+      },
+      instagram: {
+        title: 'Pages Instagram Utiles',
+        description: 'Suivez ces comptes Instagram pour rester informé des horaires des blocos, des emplacements et des événements du Carnaval:',
+        blocosRio: {
+          name: 'Blocos Rio de Janeiro',
+          handle: 'blocosriodejaneiro',
+        },
+        blocosRJ: {
+          name: 'Blocos RJ',
+          handle: 'blocosrj',
+        },
+        carnavalRio: {
+          name: 'Carnaval Rio de Janeiro',
+          handle: 'carnavalriodejaneiro',
+        },
+        rioCarnival: {
+          name: 'Rio Carnival',
+          handle: 'riocarnival',
+        },
+      },
     },
     footer: {
       description: 'Construire des connexions, partager des connaissances et créer des opportunités pour les nomades numériques dans la belle Brésil.',
