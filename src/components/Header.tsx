@@ -76,17 +76,20 @@ export function Header({
       
       {isMobile ? (
         <>
-          <TouchableOpacity 
-            style={styles.menuButton}
-            onPress={() => setMenuVisible(true)}
-            activeOpacity={0.7}
-          >
-            <View style={styles.hamburger}>
-              <View style={styles.hamburgerLine} />
-              <View style={styles.hamburgerLine} />
-              <View style={styles.hamburgerLine} />
-            </View>
-          </TouchableOpacity>
+          <View style={styles.mobileRightContainer}>
+            <LanguageSelector />
+            <TouchableOpacity 
+              style={styles.menuButton}
+              onPress={() => setMenuVisible(true)}
+              activeOpacity={0.7}
+            >
+              <View style={styles.hamburger}>
+                <View style={styles.hamburgerLine} />
+                <View style={styles.hamburgerLine} />
+                <View style={styles.hamburgerLine} />
+              </View>
+            </TouchableOpacity>
+          </View>
           
           <Modal
             visible={menuVisible}
@@ -118,9 +121,6 @@ export function Header({
                     <Text style={styles.mobileNavText}>{item.label}</Text>
                   </TouchableOpacity>
                 ))}
-                <View style={styles.mobileLanguageSelector}>
-                  <LanguageSelector />
-                </View>
               </View>
             </Pressable>
           </Modal>
@@ -265,10 +265,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: theme.textPrimary,
   },
-  mobileLanguageSelector: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderTopWidth: 1,
-    borderTopColor: theme.borderColor,
+  mobileRightContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
   },
 });

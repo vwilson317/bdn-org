@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 20,
-    backgroundColor: theme.bgSecondary,
+    backgroundColor: 'transparent',
     borderWidth: 1,
     borderColor: theme.borderColor,
   },
