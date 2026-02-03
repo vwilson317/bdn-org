@@ -3,6 +3,7 @@ import { StyleSheet, ScrollView, View } from 'react-native';
 import { useRef, useState } from 'react';
 import { Header } from './src/components/Header';
 import { Hero } from './src/components/Hero';
+import { Announcements } from './src/components/Announcements';
 import { WhyJoin } from './src/components/WhyJoin';
 import { Connect } from './src/components/Connect';
 import { CommunityServices } from './src/components/CommunityServices';
@@ -68,6 +69,7 @@ export default function App() {
         >
           <Hero />
         </View>
+        <Announcements />
         <View
           onLayout={(event) => {
             const { y } = event.nativeEvent.layout;

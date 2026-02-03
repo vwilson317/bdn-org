@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Linking } from 'react-native';
 import { theme } from '../theme';
 
-const REGISTRATION_FORM_URL = 'https://form.typeform.com/to/YOUR_FORM_ID'; // Replace with your actual form URL
+const REGISTRATION_FORM_URL = 'https://form.typeform.com/to/dAkHiZxN';
 
 export function Contact() {
   const openRegistrationForm = async () => {

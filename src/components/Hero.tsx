@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Linking } from 'react-native';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { theme } from '../theme';
 
 const WHATSAPP_GROUP_LINK = 'https://chat.whatsapp.com/K5LTdexWpVgGJK66Iso9PC?utm_campaign=WhatsApp%20General%20Group%20Chat&utm_medium=web&utm_source=beacons';
@@ -28,7 +29,7 @@ export function Hero() {
         </Text>
       </View>
       <TouchableOpacity style={styles.whatsappButton} onPress={handleJoinWhatsApp}>
-        <Text style={styles.whatsappIcon}>💬</Text>
+        <FontAwesome5 name="whatsapp" size={24} color={theme.bgPrimary} />
         <Text style={styles.whatsappButtonText}>Join Our Community on WhatsApp</Text>
       </TouchableOpacity>
     </View>
@@ -100,9 +101,6 @@ const styles = StyleSheet.create({
     gap: 12,
     minWidth: 280,
     ...theme.shadow,
-  },
-  whatsappIcon: {
-    fontSize: 24,
   },
   whatsappButtonText: {
     fontSize: 16,
