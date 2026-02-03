@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Linking, Platform, Animated } from 'react-native';
 import { FontAwesome5, FontAwesome } from '@expo/vector-icons';
 import { theme } from '../theme';
+import { useI18n } from '../i18n/context';
 
 interface SocialLink {
   name: string;
@@ -110,6 +111,8 @@ function SocialCard({ link, index, onPress }: { link: SocialLink; index: number;
 }
 
 export function Connect() {
+  const { t } = useI18n();
+  
   const handleSocialClick = (url?: string) => {
     if (url) {
       Linking.openURL(url).catch((err) => {
@@ -120,9 +123,9 @@ export function Connect() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Connect With Us</Text>
+      <Text style={styles.title}>{t.connect.title}</Text>
       <Text style={styles.subtitle}>
-        Join the conversation and stay updated with our community across all platforms
+        {t.connect.subtitle}
       </Text>
       <View style={styles.card}>
         <View style={styles.socialGrid}>
@@ -136,7 +139,7 @@ export function Connect() {
           ))}
         </View>
         <Text style={styles.footerText}>
-          Follow us for updates, events, and community highlights from Brazil!
+          {t.connect.footerText}
         </Text>
       </View>
     </View>

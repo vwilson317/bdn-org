@@ -2,10 +2,13 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Linking } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { theme } from '../theme';
+import { useI18n } from '../i18n/context';
 
 const WHATSAPP_GROUP_LINK = 'https://chat.whatsapp.com/K5LTdexWpVgGJK66Iso9PC?utm_campaign=WhatsApp%20General%20Group%20Chat&utm_medium=web&utm_source=beacons';
 
 export function Hero() {
+  const { t } = useI18n();
+  
   const handleJoinWhatsApp = () => {
     Linking.openURL(WHATSAPP_GROUP_LINK).catch((err) => {
       console.error('Failed to open WhatsApp:', err);
@@ -19,18 +22,16 @@ export function Hero() {
           <Text style={styles.logoText}>BDN</Text>
         </View>
       </View>
-      <Text style={styles.title}>Brazil Digital Nomads</Text>
-      <Text style={styles.subtitle}>Where Brazilian coastal vibes meet digital innovation</Text>
+      <Text style={styles.title}>{t.hero.title}</Text>
+      <Text style={styles.subtitle}>{t.hero.subtitle}</Text>
       <View style={styles.descriptionBox}>
         <Text style={styles.description}>
-          Join our vibrant community of digital nomads, remote workers and locals in beautiful Brazil. 
-          We're building connections, sharing knowledge, and creating opportunities while living the 
-          remote work dream by the Brazilian coast.
+          {t.hero.description}
         </Text>
       </View>
       <TouchableOpacity style={styles.whatsappButton} onPress={handleJoinWhatsApp}>
         <FontAwesome5 name="whatsapp" size={24} color={theme.bgPrimary} />
-        <Text style={styles.whatsappButtonText}>Join Our Community on WhatsApp</Text>
+        <Text style={styles.whatsappButtonText}>{t.hero.joinWhatsApp}</Text>
       </TouchableOpacity>
     </View>
   );

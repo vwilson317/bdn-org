@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { theme } from '../theme';
 import { getFlagEmoji } from '../utils/flags';
+import { useI18n } from '../i18n/context';
 
 interface TeamMember {
   name: string;
@@ -11,36 +12,38 @@ interface TeamMember {
   countryCode: string;
 }
 
-const teamMembers: TeamMember[] = [
-  {
-    name: 'Janeesa Hollingshead',
-    role: 'Community Coordinator',
-    description: 'Janeesa loves creating a positive community in Brazil. She helps people feel welcome, answers their questions and makes spaces fun and useful. She\'s a passionate coordinator for the Brazil Digital Nomads project.',
-    initial: 'J',
-    countryCode: 'US',
-  },
-  {
-    name: 'Lauro Lana',
-    role: 'Community Founder',
-    description: 'Lauro loves to connect people. That is why he founded the Brazil Digital Nomads community, and is all about supporting inclusion and social projects. He is the go-to person for local contacts, thanks to his strong ties in the community.',
-    initial: 'L',
-    countryCode: 'BR',
-  },
-  {
-    name: 'Vincent Wilson',
-    role: 'Ambassador',
-    description: 'Vincent is passionate about building connections and sharing knowledge within the digital nomad community. As an ambassador, he helps newcomers navigate Brazil and creates opportunities for meaningful connections.',
-    initial: 'V',
-    countryCode: 'US',
-  },
-];
-
 export function Team() {
+  const { t } = useI18n();
+
+  const teamMembers: TeamMember[] = [
+    {
+      name: 'Janeesa Hollingshead',
+      role: t.team.roles.coordinator,
+      description: 'Janeesa loves creating a positive community in Brazil. She helps people feel welcome, answers their questions and makes spaces fun and useful. She\'s a passionate coordinator for the Brazil Digital Nomads project.',
+      initial: 'J',
+      countryCode: 'US',
+    },
+    {
+      name: 'Lauro Lana',
+      role: t.team.roles.founder,
+      description: 'Lauro loves to connect people. That is why he founded the Brazil Digital Nomads community, and is all about supporting inclusion and social projects. He is the go-to person for local contacts, thanks to his strong ties in the community.',
+      initial: 'L',
+      countryCode: 'BR',
+    },
+    {
+      name: 'Vincent Wilson',
+      role: t.team.roles.ambassador,
+      description: 'Vincent is passionate about building connections and sharing knowledge within the digital nomad community. As an ambassador, he helps newcomers navigate Brazil and creates opportunities for meaningful connections.',
+      initial: 'V',
+      countryCode: 'US',
+    },
+  ];
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Meet the Team</Text>
+      <Text style={styles.title}>{t.team.title}</Text>
       <Text style={styles.subtitle}>
-        The passionate people behind Brazil Digital Nomads
+        {t.team.subtitle}
       </Text>
       <View style={styles.teamGrid}>
         {teamMembers.map((member, index) => (

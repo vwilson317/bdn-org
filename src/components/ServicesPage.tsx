@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { theme } from '../theme';
+import { useI18n } from '../i18n/context';
 
 interface Service {
   id: string;
@@ -89,14 +90,60 @@ interface ServicesPageProps {
 }
 
 export function ServicesPage({ onBack }: ServicesPageProps) {
+  const { t } = useI18n();
+
+  // Map service data with translations
+  const getTranslatedService = (service: Service): Service => {
+    const dayMap: Record<string, string> = {
+      'MONDAY': t.communityServices.days.monday,
+      'TUESDAY': t.communityServices.days.tuesday,
+      'WEDNESDAY': t.communityServices.days.wednesday,
+      'THURSDAY': t.communityServices.days.thursday,
+      'FRIDAY': t.communityServices.days.friday,
+      'SATURDAY': t.communityServices.days.saturday,
+      'SUNDAY': t.communityServices.days.sunday,
+      'DAILY': t.communityServices.days.daily,
+    };
+    
+    const dateMap: Record<string, string> = {
+      'Every Week': t.communityServices.dates.everyWeek,
+      'Monthly': t.communityServices.dates.monthly,
+      'Bi-weekly': t.communityServices.dates.biWeekly,
+      'On Demand': t.communityServices.dates.onDemand,
+      'By Appointment': t.communityServices.dates.byAppointment,
+    };
+    
+    const timeMap: Record<string, string> = {
+      'Flexible': t.communityServices.times.flexible,
+    };
+
+    const categoryMap: Record<string, string> = {
+      'Workspace': t.communityServices.categories.workspace,
+      'Learning': t.communityServices.categories.learning,
+      'Networking': t.communityServices.categories.networking,
+      'Support': t.communityServices.categories.support,
+      'Social': t.communityServices.categories.social,
+    };
+
+    return {
+      ...service,
+      day: dayMap[service.day] || service.day,
+      date: dateMap[service.date] || service.date,
+      time: timeMap[service.time] || service.time,
+      category: categoryMap[service.category] || service.category,
+    };
+  };
+
+  const translatedServices = allServices.map(getTranslatedService);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={onBack}>
           <FontAwesome5 name="arrow-left" size={20} color={theme.textPrimary} />
-          <Text style={styles.backText}>Back</Text>
+          <Text style={styles.backText}>{t.servicesPage.back}</Text>
         </TouchableOpacity>
-        <Text style={styles.pageTitle}>All Community Services</Text>
+        <Text style={styles.pageTitle}>{t.servicesPage.title}</Text>
       </View>
       <ScrollView 
         style={styles.scrollView}
@@ -104,7 +151,7 @@ export function ServicesPage({ onBack }: ServicesPageProps) {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.cardsContainer}>
-          {allServices.map((service) => (
+          {translatedServices.map((service) => (
             <View key={service.id} style={styles.card}>
               <View style={styles.banner}>
                 <View style={styles.bannerLeft}>
@@ -114,7 +161,7 @@ export function ServicesPage({ onBack }: ServicesPageProps) {
                     ))}
                   </View>
                   <View style={styles.bannerContent}>
-                    <Text style={styles.bannerTitle}>BDN Service</Text>
+                    <Text style={styles.bannerTitle}>{t.communityServices.bdnService}</Text>
                     <Text style={styles.bannerText}>{service.day}</Text>
                     <Text style={styles.bannerText}>{service.date}</Text>
                     <Text style={styles.bannerText}>{service.time}</Text>
@@ -140,7 +187,7 @@ export function ServicesPage({ onBack }: ServicesPageProps) {
                   </View>
                 </View>
                 <TouchableOpacity style={styles.viewButton}>
-                  <Text style={styles.viewButtonText}>View Service →</Text>
+                  <Text style={styles.viewButtonText}>{t.communityServices.viewService}</Text>
                 </TouchableOpacity>
               </View>
             </View>

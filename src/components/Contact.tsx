@@ -1,10 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Linking } from 'react-native';
 import { theme } from '../theme';
+import { useI18n } from '../i18n/context';
 
 const REGISTRATION_FORM_URL = 'https://form.typeform.com/to/dAkHiZxN';
 
 export function Contact() {
+  const { t } = useI18n();
+  
   const openRegistrationForm = async () => {
     try {
       const supported = await Linking.canOpenURL(REGISTRATION_FORM_URL);
@@ -19,16 +22,16 @@ export function Contact() {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>Register Community Service</Text>
+        <Text style={styles.title}>{t.contact.title}</Text>
         <Text style={styles.description}>
-          Offer your services to members of the community. These will be reviewed by the team and we will contact you.
+          {t.contact.description}
         </Text>
         <TouchableOpacity 
           style={styles.button} 
           onPress={openRegistrationForm}
           activeOpacity={0.8}
         >
-          <Text style={styles.buttonText}>Register Your Service</Text>
+          <Text style={styles.buttonText}>{t.contact.button}</Text>
         </TouchableOpacity>
       </View>
     </View>

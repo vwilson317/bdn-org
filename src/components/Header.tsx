@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Modal, Pressable, useWindowDimensions } from 'react-native';
 import { theme } from '../theme';
+import { useI18n } from '../i18n/context';
+import { LanguageSelector } from './LanguageSelector';
 
 interface HeaderProps {
   onHomePress?: () => void;
@@ -20,6 +22,7 @@ export function Header({
   const { width } = useWindowDimensions();
   const isMobile = width < 768;
   const [menuVisible, setMenuVisible] = useState(false);
+  const { t } = useI18n();
 
   const handleNavPress = (callback?: () => void) => {
     setMenuVisible(false);
@@ -30,11 +33,11 @@ export function Header({
     label: string;
     onPress?: () => void;
   }> = [
-    { label: 'Home', onPress: onHomePress },
-    { label: 'Why Join', onPress: onWhyJoinPress },
-    { label: 'Connect', onPress: onConnectPress },
-    { label: 'Team', onPress: onTeamPress },
-    { label: isMobile ? 'Register Service' : 'Register Community Service', onPress: onRegisterPress },
+    { label: t.header.home, onPress: onHomePress },
+    { label: t.header.whyJoin, onPress: onWhyJoinPress },
+    { label: t.header.connect, onPress: onConnectPress },
+    { label: t.header.team, onPress: onTeamPress },
+    { label: isMobile ? t.header.registerServiceShort : t.header.registerService, onPress: onRegisterPress },
   ];
 
   return (
@@ -97,7 +100,7 @@ export function Header({
             >
               <View style={styles.mobileMenu}>
                 <View style={styles.mobileMenuHeader}>
-                  <Text style={styles.mobileMenuTitle}>Menu</Text>
+                  <Text style={styles.mobileMenuTitle}>{t.header.menu}</Text>
                   <TouchableOpacity 
                     onPress={() => setMenuVisible(false)}
                     style={styles.closeButton}
@@ -115,22 +118,28 @@ export function Header({
                     <Text style={styles.mobileNavText}>{item.label}</Text>
                   </TouchableOpacity>
                 ))}
+                <View style={styles.mobileLanguageSelector}>
+                  <LanguageSelector />
+                </View>
               </View>
             </Pressable>
           </Modal>
         </>
       ) : (
-        <View style={styles.nav}>
-          {navItems.map((item, index) => (
-            <TouchableOpacity 
-              key={index}
-              style={styles.navItem}
-              onPress={item.onPress}
-              activeOpacity={0.7}
-            >
-              <Text style={styles.navText}>{item.label}</Text>
-            </TouchableOpacity>
-          ))}
+        <View style={styles.navContainer}>
+          <View style={styles.nav}>
+            {navItems.map((item, index) => (
+              <TouchableOpacity 
+                key={index}
+                style={styles.navItem}
+                onPress={item.onPress}
+                activeOpacity={0.7}
+              >
+                <Text style={styles.navText}>{item.label}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+          <LanguageSelector />
         </View>
       )}
     </View>
@@ -165,6 +174,11 @@ const styles = StyleSheet.create({
   logoTextFull: {
     fontWeight: '700',
     color: theme.textPrimary,
+  },
+  navContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 16,
   },
   nav: {
     flexDirection: 'row',
@@ -250,5 +264,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: theme.textPrimary,
+  },
+  mobileLanguageSelector: {
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderTopWidth: 1,
+    borderTopColor: theme.borderColor,
   },
 });

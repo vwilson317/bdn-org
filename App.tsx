@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, ScrollView, View } from 'react-native';
 import { useRef, useState } from 'react';
+import { I18nProvider } from './src/i18n/context';
 import { Header } from './src/components/Header';
 import { Hero } from './src/components/Hero';
 import { Announcements } from './src/components/Announcements';
@@ -38,74 +39,78 @@ export default function App() {
 
   if (showServicesPage) {
     return (
-      <View style={styles.container}>
-        <StatusBar style="dark" />
-        <ServicesPage onBack={() => setShowServicesPage(false)} />
-      </View>
+      <I18nProvider>
+        <View style={styles.container}>
+          <StatusBar style="dark" />
+          <ServicesPage onBack={() => setShowServicesPage(false)} />
+        </View>
+      </I18nProvider>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="dark" />
-      <Header 
-        onHomePress={scrollToHome}
-        onWhyJoinPress={scrollToWhyJoin}
-        onConnectPress={scrollToConnect}
-        onTeamPress={scrollToTeam}
-        onRegisterPress={scrollToRegister}
-      />
-      <ScrollView 
-        ref={scrollViewRef}
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-      >
-        <View
-          onLayout={(event) => {
-            const { y } = event.nativeEvent.layout;
-            setSectionY(prev => ({ ...prev, home: y }));
-          }}
+    <I18nProvider>
+      <View style={styles.container}>
+        <StatusBar style="dark" />
+        <Header 
+          onHomePress={scrollToHome}
+          onWhyJoinPress={scrollToWhyJoin}
+          onConnectPress={scrollToConnect}
+          onTeamPress={scrollToTeam}
+          onRegisterPress={scrollToRegister}
+        />
+        <ScrollView 
+          ref={scrollViewRef}
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
         >
-          <Hero />
-        </View>
-        <Announcements />
-        <View
-          onLayout={(event) => {
-            const { y } = event.nativeEvent.layout;
-            setSectionY(prev => ({ ...prev, whyJoin: y }));
-          }}
-        >
-          <WhyJoin />
-        </View>
-        <View
-          onLayout={(event) => {
-            const { y } = event.nativeEvent.layout;
-            setSectionY(prev => ({ ...prev, connect: y }));
-          }}
-        >
-          <Connect />
-        </View>
-        <CommunityServices onShowMore={() => setShowServicesPage(true)} />
-        <View
-          onLayout={(event) => {
-            const { y } = event.nativeEvent.layout;
-            setSectionY(prev => ({ ...prev, team: y }));
-          }}
-        >
-          <Team />
-        </View>
-        <View
-          onLayout={(event) => {
-            const { y } = event.nativeEvent.layout;
-            setSectionY(prev => ({ ...prev, register: y }));
-          }}
-        >
-          <Contact />
-        </View>
-        <Footer />
-      </ScrollView>
-    </View>
+          <View
+            onLayout={(event) => {
+              const { y } = event.nativeEvent.layout;
+              setSectionY(prev => ({ ...prev, home: y }));
+            }}
+          >
+            <Hero />
+          </View>
+          <Announcements />
+          <View
+            onLayout={(event) => {
+              const { y } = event.nativeEvent.layout;
+              setSectionY(prev => ({ ...prev, whyJoin: y }));
+            }}
+          >
+            <WhyJoin />
+          </View>
+          <View
+            onLayout={(event) => {
+              const { y } = event.nativeEvent.layout;
+              setSectionY(prev => ({ ...prev, connect: y }));
+            }}
+          >
+            <Connect />
+          </View>
+          <CommunityServices onShowMore={() => setShowServicesPage(true)} />
+          <View
+            onLayout={(event) => {
+              const { y } = event.nativeEvent.layout;
+              setSectionY(prev => ({ ...prev, team: y }));
+            }}
+          >
+            <Team />
+          </View>
+          <View
+            onLayout={(event) => {
+              const { y } = event.nativeEvent.layout;
+              setSectionY(prev => ({ ...prev, register: y }));
+            }}
+          >
+            <Contact />
+          </View>
+          <Footer />
+        </ScrollView>
+      </View>
+    </I18nProvider>
   );
 }
 

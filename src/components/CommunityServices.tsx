@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Dimensions, NativeScrollEvent, NativeSyntheticEvent, Animated } from 'react-native';
 import { theme } from '../theme';
+import { useI18n } from '../i18n/context';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const IS_MOBILE = SCREEN_WIDTH < 768;
@@ -77,10 +78,46 @@ interface CommunityServicesProps {
 }
 
 export function CommunityServices({ onShowMore }: CommunityServicesProps) {
+  const { t } = useI18n();
   const scrollViewRef = useRef<ScrollView>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
   const hintOpacity = useRef(new Animated.Value(1)).current;
+
+  // Map service data with translations
+  const getTranslatedService = (service: Service): Service => {
+    const dayMap: Record<string, string> = {
+      'MONDAY': t.communityServices.days.monday,
+      'TUESDAY': t.communityServices.days.tuesday,
+      'WEDNESDAY': t.communityServices.days.wednesday,
+      'THURSDAY': t.communityServices.days.thursday,
+      'FRIDAY': t.communityServices.days.friday,
+      'SATURDAY': t.communityServices.days.saturday,
+      'SUNDAY': t.communityServices.days.sunday,
+      'DAILY': t.communityServices.days.daily,
+    };
+    
+    const dateMap: Record<string, string> = {
+      'Every Week': t.communityServices.dates.everyWeek,
+      'Monthly': t.communityServices.dates.monthly,
+      'Bi-weekly': t.communityServices.dates.biWeekly,
+      'On Demand': t.communityServices.dates.onDemand,
+      'By Appointment': t.communityServices.dates.byAppointment,
+    };
+    
+    const timeMap: Record<string, string> = {
+      'Flexible': t.communityServices.times.flexible,
+    };
+
+    return {
+      ...service,
+      day: dayMap[service.day] || service.day,
+      date: dateMap[service.date] || service.date,
+      time: timeMap[service.time] || service.time,
+    };
+  };
+
+  const translatedServices = featuredServices.map(getTranslatedService);
 
   useEffect(() => {
     // Pulse animation for hint
@@ -120,14 +157,14 @@ export function CommunityServices({ onShowMore }: CommunityServicesProps) {
   if (IS_MOBILE) {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Community Services</Text>
+        <Text style={styles.title}>{t.communityServices.title}</Text>
         <Text style={styles.subtitle}>
-          Discover resources, support, and opportunities available to our community members
+          {t.communityServices.subtitle}
         </Text>
         
         {/* Swipe hint with animation */}
         <Animated.View style={[styles.swipeHint, { opacity: hintOpacity }]}>
-          <Text style={styles.swipeHintText}>← Swipe to explore →</Text>
+          <Text style={styles.swipeHintText}>{t.communityServices.swipeHint}</Text>
         </Animated.View>
 
         <View style={styles.scrollContainer}>
@@ -143,7 +180,7 @@ export function CommunityServices({ onShowMore }: CommunityServicesProps) {
             onScroll={handleScroll}
             scrollEventThrottle={16}
           >
-            {featuredServices.map((service, index) => {
+            {translatedServices.map((service, index) => {
               const inputRange = [
                 (index - 1) * (CARD_WIDTH + CARD_SPACING),
                 index * (CARD_WIDTH + CARD_SPACING),
@@ -169,14 +206,14 @@ export function CommunityServices({ onShowMore }: CommunityServicesProps) {
                     styles.card,
                     {
                       width: CARD_WIDTH,
-                      marginRight: index === featuredServices.length - 1 ? 0 : CARD_SPACING,
+                      marginRight: index === translatedServices.length - 1 ? 0 : CARD_SPACING,
                       transform: [{ scale }],
                       opacity,
                     },
                   ]}
                 >
                   <View style={styles.banner}>
-                    <Text style={styles.bannerTitle}>BDN Service</Text>
+                    <Text style={styles.bannerTitle}>{t.communityServices.bdnService}</Text>
                     <Text style={styles.bannerText}>{service.day} • {service.date} • {service.time}</Text>
                     <Text style={styles.bannerLocation}>{service.locationFull}</Text>
                   </View>
@@ -184,7 +221,7 @@ export function CommunityServices({ onShowMore }: CommunityServicesProps) {
                     <Text style={styles.serviceTitle}>{service.title}</Text>
                     <Text style={styles.serviceDescription}>{service.description}</Text>
                     <TouchableOpacity style={styles.viewButton}>
-                      <Text style={styles.viewButtonText}>View Service →</Text>
+                      <Text style={styles.viewButtonText}>{t.communityServices.viewService}</Text>
                     </TouchableOpacity>
                   </View>
                 </Animated.View>
@@ -195,7 +232,7 @@ export function CommunityServices({ onShowMore }: CommunityServicesProps) {
 
         {/* Scroll indicators with animation */}
         <View style={styles.indicators}>
-          {featuredServices.map((_, index) => {
+          {translatedServices.map((_, index) => {
             const indicatorWidth = scrollX.interpolate({
               inputRange: [
                 (index - 1) * (CARD_WIDTH + CARD_SPACING),
@@ -224,7 +261,7 @@ export function CommunityServices({ onShowMore }: CommunityServicesProps) {
         </View>
 
         <TouchableOpacity style={styles.showMoreButton} onPress={onShowMore}>
-          <Text style={styles.showMoreText}>Show More Services</Text>
+          <Text style={styles.showMoreText}>{t.communityServices.showMore}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -233,15 +270,15 @@ export function CommunityServices({ onShowMore }: CommunityServicesProps) {
   // Desktop layout (original)
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Community Services</Text>
+      <Text style={styles.title}>{t.communityServices.title}</Text>
       <Text style={styles.subtitle}>
-        Discover resources, support, and opportunities available to our community members
+        {t.communityServices.subtitle}
       </Text>
       <View style={styles.cardsContainer}>
-        {featuredServices.map((service) => (
+        {translatedServices.map((service) => (
           <View key={service.id} style={styles.card}>
             <View style={styles.banner}>
-              <Text style={styles.bannerTitle}>BDN Service</Text>
+              <Text style={styles.bannerTitle}>{t.communityServices.bdnService}</Text>
               <Text style={styles.bannerText}>{service.day} • {service.date} • {service.time}</Text>
               <Text style={styles.bannerLocation}>{service.locationFull}</Text>
             </View>
@@ -249,14 +286,14 @@ export function CommunityServices({ onShowMore }: CommunityServicesProps) {
               <Text style={styles.serviceTitle}>{service.title}</Text>
               <Text style={styles.serviceDescription}>{service.description}</Text>
               <TouchableOpacity style={styles.viewButton}>
-                <Text style={styles.viewButtonText}>View Service →</Text>
+                <Text style={styles.viewButtonText}>{t.communityServices.viewService}</Text>
               </TouchableOpacity>
             </View>
           </View>
         ))}
       </View>
       <TouchableOpacity style={styles.showMoreButton} onPress={onShowMore}>
-        <Text style={styles.showMoreText}>Show More Services</Text>
+        <Text style={styles.showMoreText}>{t.communityServices.showMore}</Text>
       </TouchableOpacity>
     </View>
   );

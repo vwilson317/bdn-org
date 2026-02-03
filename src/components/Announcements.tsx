@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Linking, Dimensions } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { theme } from '../theme';
+import { useI18n } from '../i18n/context';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const IS_MOBILE = SCREEN_WIDTH < 768;
@@ -25,6 +26,8 @@ const announcements: Announcement[] = [
 ];
 
 export function Announcements() {
+  const { t } = useI18n();
+  
   const formatDateRange = (start: string, end: string) => {
     return `${start} - ${end}`;
   };
@@ -37,9 +40,9 @@ export function Announcements() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Announcements</Text>
+      <Text style={styles.title}>{t.announcements.title}</Text>
       <Text style={styles.subtitle}>
-        Stay updated with the latest events and opportunities in our community.
+        {t.announcements.subtitle}
       </Text>
       <View style={styles.announcementsList}>
         {announcements.map((announcement, index) => (
@@ -59,7 +62,7 @@ export function Announcements() {
                   activeOpacity={0.8}
                 >
                   <FontAwesome5 name="whatsapp" size={18} color={theme.bgPrimary} />
-                  <Text style={styles.joinButtonText}>Join Group</Text>
+                  <Text style={styles.joinButtonText}>{t.announcements.joinGroup}</Text>
                 </TouchableOpacity>
               )}
             </View>

@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView, Dimensions, NativeScrollEvent, NativeSyntheticEvent, Animated } from 'react-native';
 import { theme } from '../theme';
+import { useI18n } from '../i18n/context';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const IS_MOBILE = SCREEN_WIDTH < 768;
@@ -13,35 +14,36 @@ interface Benefit {
   icon: string;
 }
 
-const benefits: Benefit[] = [
-  {
-    title: 'Networking Opportunities',
-    description: 'Digital nomads typically work independently, which can often be isolating. By coming together as a community, we provide opportunities for networking and building connections with like-minded individuals.',
-    icon: '🤝',
-  },
-  {
-    title: 'Sharing Knowledge & Resources',
-    description: 'Our community serves as a platform for sharing knowledge and resources, such as tips for finding accommodation or the best co-working spaces in the area.',
-    icon: '📚',
-  },
-  {
-    title: 'Collaboration & Skill-sharing',
-    description: 'By working together and sharing our skills and expertise, we can collaborate on projects and potentially even start businesses together.',
-    icon: '💡',
-  },
-  {
-    title: 'Social Support',
-    description: 'Moving to a new place can be challenging, but being part of a community can provide social support and a sense of belonging.',
-    icon: '❤️',
-  },
-  {
-    title: 'Promoting Local Businesses',
-    description: 'By supporting local businesses, we can help boost the economy of Brazil and create a mutually beneficial relationship between our community and the wider community.',
-    icon: '🏪',
-  },
-];
-
 export function WhyJoin() {
+  const { t } = useI18n();
+  
+  const benefits: Benefit[] = [
+    {
+      title: t.whyJoin.benefits.networking.title,
+      description: t.whyJoin.benefits.networking.description,
+      icon: '🤝',
+    },
+    {
+      title: t.whyJoin.benefits.knowledge.title,
+      description: t.whyJoin.benefits.knowledge.description,
+      icon: '📚',
+    },
+    {
+      title: t.whyJoin.benefits.collaboration.title,
+      description: t.whyJoin.benefits.collaboration.description,
+      icon: '💡',
+    },
+    {
+      title: t.whyJoin.benefits.support.title,
+      description: t.whyJoin.benefits.support.description,
+      icon: '❤️',
+    },
+    {
+      title: t.whyJoin.benefits.localBusiness.title,
+      description: t.whyJoin.benefits.localBusiness.description,
+      icon: '🏪',
+    },
+  ];
   const scrollViewRef = useRef<ScrollView>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -85,15 +87,14 @@ export function WhyJoin() {
   if (IS_MOBILE) {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Why Join Our Community?</Text>
+        <Text style={styles.title}>{t.whyJoin.title}</Text>
         <Text style={styles.subtitle}>
-          As a community of digital nomads, remote workers and locals in Brazil, it is important to 
-          understand the "why" behind our existence and the benefits of being part of it.
+          {t.whyJoin.subtitle}
         </Text>
         
         {/* Swipe hint with animation */}
         <Animated.View style={[styles.swipeHint, { opacity: hintOpacity }]}>
-          <Text style={styles.swipeHintText}>← Swipe to explore →</Text>
+          <Text style={styles.swipeHintText}>{t.whyJoin.swipeHint}</Text>
         </Animated.View>
 
         <View style={styles.scrollContainer}>
@@ -181,8 +182,7 @@ export function WhyJoin() {
         </View>
 
         <Text style={styles.footerText}>
-          By understanding the "why" behind our community, we can better appreciate the benefits of 
-          being part of it and work towards making it even stronger.
+          {t.whyJoin.footerText}
         </Text>
       </View>
     );
@@ -191,10 +191,9 @@ export function WhyJoin() {
   // Desktop layout (original)
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Why Join Our Community?</Text>
+      <Text style={styles.title}>{t.whyJoin.title}</Text>
       <Text style={styles.subtitle}>
-        As a community of digital nomads, remote workers and locals in Brazil, it is important to 
-        understand the "why" behind our existence and the benefits of being part of it.
+        {t.whyJoin.subtitle}
       </Text>
       <View style={styles.benefitsGrid}>
         {benefits.map((benefit, index) => (
@@ -206,8 +205,7 @@ export function WhyJoin() {
         ))}
       </View>
       <Text style={styles.footerText}>
-        By understanding the "why" behind our community, we can better appreciate the benefits of 
-        being part of it and work towards making it even stronger.
+        {t.whyJoin.footerText}
       </Text>
     </View>
   );
