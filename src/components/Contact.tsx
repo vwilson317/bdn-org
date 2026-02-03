@@ -61,17 +61,19 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   button: {
-    backgroundColor: theme.yellow,
+    backgroundColor: 'transparent',
     paddingVertical: 16,
     paddingHorizontal: 32,
     borderRadius: theme.borderRadius,
     alignItems: 'center',
     minWidth: 200,
+    borderWidth: 2,
+    borderColor: theme.gradient.middle,
     ...theme.shadow,
   },
   buttonText: {
     fontSize: 18,
     fontWeight: '700',
-    color: theme.textPrimary,
+    color: theme.gradient.start,
   },
 });

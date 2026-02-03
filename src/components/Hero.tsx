@@ -51,11 +51,11 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: theme.yellow,
+    backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 3,
-    borderColor: theme.textPrimary,
+    borderColor: theme.gradient.middle,
   },
   logoText: {
     fontSize: 24,
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   whatsappButton: {
-    backgroundColor: '#25D366',
+    backgroundColor: '#2ECC71',
     paddingHorizontal: 32,
     paddingVertical: 16,
     borderRadius: theme.borderRadius,

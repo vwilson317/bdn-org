@@ -201,12 +201,14 @@ const styles = StyleSheet.create({
     ...theme.shadow,
   },
   banner: {
-    backgroundColor: theme.yellow,
+    backgroundColor: 'transparent',
     padding: 20,
     position: 'relative',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
+    borderBottomWidth: 3,
+    borderBottomColor: theme.gradient.middle,
   },
   bannerLeft: {
     flexDirection: 'row',
@@ -298,15 +300,17 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   viewButton: {
-    backgroundColor: theme.yellow,
+    backgroundColor: 'transparent',
     paddingVertical: 14,
     paddingHorizontal: 24,
     borderRadius: theme.borderRadius,
     alignItems: 'center',
+    borderWidth: 2,
+    borderColor: theme.gradient.middle,
   },
   viewButtonText: {
     fontSize: 15,
     fontWeight: '700',
-    color: theme.textPrimary,
+    color: theme.gradient.start,
   },
 });

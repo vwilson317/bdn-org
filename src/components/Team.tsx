@@ -98,10 +98,12 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: theme.yellow,
+    backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
+    borderWidth: 3,
+    borderColor: theme.gradient.middle,
   },
   avatarText: {
     fontSize: 36,
@@ -125,7 +127,7 @@ const styles = StyleSheet.create({
   memberRole: {
     fontSize: 16,
     fontWeight: '600',
-    color: theme.yellowDark,
+    color: theme.gradient.start,
     marginBottom: 16,
   },
   memberDescription: {

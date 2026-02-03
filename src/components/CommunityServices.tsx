@@ -215,7 +215,7 @@ export function CommunityServices({ onShowMore }: CommunityServicesProps) {
                   styles.indicator,
                   {
                     width: indicatorWidth,
-                    backgroundColor: isActive ? theme.yellow : theme.borderColor,
+                    backgroundColor: isActive ? theme.gradient.middle : theme.borderColor,
                   },
                 ]}
               />
@@ -333,8 +333,10 @@ const styles = StyleSheet.create({
     borderColor: theme.borderColor,
   },
   banner: {
-    backgroundColor: theme.yellow,
+    backgroundColor: 'transparent',
     padding: 16,
+    borderBottomWidth: 2,
+    borderBottomColor: theme.gradient.middle,
   },
   bannerTitle: {
     fontSize: 14,
@@ -371,16 +373,18 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   viewButton: {
-    backgroundColor: theme.yellow,
+    backgroundColor: 'transparent',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: theme.borderRadius,
     alignItems: 'center',
+    borderWidth: 2,
+    borderColor: theme.gradient.middle,
   },
   viewButtonText: {
     fontSize: 14,
     fontWeight: '600',
-    color: theme.textPrimary,
+    color: theme.gradient.start,
   },
   showMoreButton: {
     marginTop: 8,

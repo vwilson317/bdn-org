@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   joinButton: {
-    backgroundColor: '#25D366',
+    backgroundColor: '#2ECC71',
     paddingHorizontal: 20,
     paddingVertical: 12,
     borderRadius: theme.borderRadius,

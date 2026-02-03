@@ -152,11 +152,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   logoCircle: {
-    backgroundColor: theme.yellow,
+    backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
-    borderColor: theme.textPrimary,
+    borderColor: theme.gradient.middle,
   },
   logoText: {
     fontWeight: '800',

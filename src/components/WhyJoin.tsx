@@ -172,7 +172,7 @@ export function WhyJoin() {
                   styles.indicator,
                   {
                     width: indicatorWidth,
-                    backgroundColor: isActive ? theme.yellow : theme.borderColor,
+                    backgroundColor: isActive ? theme.gradient.middle : theme.borderColor,
                   },
                 ]}
               />

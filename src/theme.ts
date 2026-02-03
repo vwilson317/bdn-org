@@ -5,6 +5,11 @@ export const theme = {
   yellow: '#2D9CDB', // Soft teal (primary accent)
   yellowLight: '#5BB5E8', // Lighter teal
   yellowDark: '#1A7FB8', // Deeper teal
+  gradient: {
+    start: '#2D9CDB', // Soft teal
+    middle: '#4AB3D9', // Medium teal
+    end: '#5BB5E8', // Light teal
+  },
   textPrimary: '#1A365D', // Deep navy
   textSecondary: '#2C5282', // Medium navy
   textLight: '#718096', // Soft gray-blue
