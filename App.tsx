@@ -147,7 +147,10 @@ export default function App() {
     <I18nProvider>
       <View style={styles.container}>
         <StatusBar style="dark" />
-        <Header 
+        {/* solid={true} because the Hero section below is not a full-bleed graphic overlay.
+            See CLAUDE.md → "Header transparency rules" if you add a new page. */}
+        <Header
+          solid={true}
           onHomePress={scrollToHome}
           onWhyJoinPress={scrollToWhyJoin}
           onConnectPress={scrollToConnect}

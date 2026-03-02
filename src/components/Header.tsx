@@ -5,6 +5,18 @@ import { useI18n } from '../i18n/context';
 import { LanguageSelector } from './LanguageSelector';
 
 interface HeaderProps {
+  /**
+   * Whether the header renders with a solid opaque background.
+   *
+   * Rule (see CLAUDE.md → "Header transparency rules"):
+   *   solid={true}  — use on every page that has NO full-bleed graphic directly
+   *                   beneath the header (e.g. LandingPage, ServicesPage, Carnival).
+   *   solid={false} — only use when a hero image intentionally sits below the
+   *                   header and the design calls for the header to float over it.
+   *
+   * Defaults to true so new pages are safe by default.
+   */
+  solid?: boolean;
   onHomePress?: () => void;
   onWhyJoinPress?: () => void;
   onConnectPress?: () => void;
@@ -13,9 +25,10 @@ interface HeaderProps {
   onRegisterPress?: () => void;
 }
 
-export function Header({ 
-  onHomePress, 
-  onWhyJoinPress, 
+export function Header({
+  solid = true,
+  onHomePress,
+  onWhyJoinPress,
   onConnectPress,
   onCarnivalPress,
   onTeamPress,
@@ -46,7 +59,8 @@ export function Header({
   return (
     <View style={[
       styles.container,
-      { 
+      solid && styles.containerSolid,
+      {
         paddingHorizontal: isMobile ? 16 : 24,
         paddingVertical: isMobile ? 12 : 16,
         minHeight: isMobile ? 56 : 64,
@@ -154,9 +168,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: theme.bgPrimary,
     borderBottomWidth: 1,
     borderBottomColor: theme.borderColor,
+  },
+  // Applied when solid={true} (the default). Pages without a hero graphic below
+  // the header must be solid — see CLAUDE.md → "Header transparency rules".
+  containerSolid: {
+    backgroundColor: theme.bgPrimary,
   },
   logoContainer: {
     flexDirection: 'row',

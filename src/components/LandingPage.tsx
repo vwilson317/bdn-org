@@ -156,9 +156,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 
-  // Header
+  // Header — explicit solid background required; no hero graphic sits beneath this header.
+  // See CLAUDE.md → "Header transparency rules" before changing this.
   header: {
     alignItems: 'center',
+    backgroundColor: theme.bgPrimary,
   },
   logoCircle: {
     width: 64,
