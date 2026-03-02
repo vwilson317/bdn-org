@@ -13,10 +13,38 @@ import { Team } from './src/components/Team';
 import { Contact } from './src/components/Contact';
 import { Footer } from './src/components/Footer';
 import { ServicesPage } from './src/components/ServicesPage';
+import { LandingPage } from './src/components/LandingPage';
 import { theme } from './src/theme';
-import { initPostHog, trackPageView } from './src/lib/posthog';
+import { initPostHog, trackPageView, trackEvent } from './src/lib/posthog';
+import { hasEngaged, recordEngagement, getCurrentPath } from './src/utils/visitTracking';
 
 export default function App() {
+  // ── Routing & visitor state ──────────────────────────────────────────────
+  // path tracks the current URL so we can react to pushState changes.
+  const [path, setPath] = useState<string>(() => getCurrentPath());
+  // isReturning is true once the visitor has engaged (cookie present).
+  const [isReturning, setIsReturning] = useState<boolean>(() => hasEngaged());
+
+  // Show the minimal landing when:
+  //  • not on /explore (which is always the full site), AND
+  //  • no engagement cookie exists yet
+  const showLanding = !path.startsWith('/explore') && !isReturning;
+
+  const handleEngagement = (source: string) => {
+    recordEngagement(source);
+    trackEvent('visitor_engaged', { source });
+    setIsReturning(true);
+  };
+
+  const handleExplore = () => {
+    handleEngagement('explore_link');
+    if (typeof window !== 'undefined') {
+      window.history.pushState(null, '', '/explore');
+      setPath('/explore');
+    }
+  };
+
+  // ── Full-site scroll state ───────────────────────────────────────────────
   const scrollViewRef = useRef<ScrollView>(null);
   const [sectionY, setSectionY] = useState({
     home: 0,
@@ -28,11 +56,22 @@ export default function App() {
   const [showServicesPage, setShowServicesPage] = useState(false);
   const [showCarnivalPage, setShowCarnivalPage] = useState(false);
 
-  // Initialize PostHog on mount
+  // Initialize PostHog and listen for back/forward navigation
   useEffect(() => {
     initPostHog();
-    trackPageView('home');
-  }, []);
+    if (!showLanding) {
+      trackPageView('home');
+    }
+    // If someone navigates directly to /explore, mark them as engaged
+    if (path.startsWith('/explore')) {
+      recordEngagement('direct_explore');
+    }
+    if (typeof window !== 'undefined') {
+      const handlePopState = () => setPath(window.location.pathname);
+      window.addEventListener('popstate', handlePopState);
+      return () => window.removeEventListener('popstate', handlePopState);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const scrollToSection = (section: keyof typeof sectionY, offset: number = 20) => {
     const y = sectionY[section];
@@ -64,6 +103,17 @@ export default function App() {
     trackPageView('register');
     scrollToSection('register');
   };
+
+  // ── Landing page (first-time visitors) ──────────────────────────────────
+  if (showLanding) {
+    return (
+      <I18nProvider>
+        <View style={styles.container}>
+          <LandingPage onEngagement={handleEngagement} onExplore={handleExplore} />
+        </View>
+      </I18nProvider>
+    );
+  }
 
   if (showServicesPage) {
     return (
