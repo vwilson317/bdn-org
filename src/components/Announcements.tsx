@@ -15,9 +15,18 @@ interface Announcement {
   icon?: string | number;
   whatsappLink?: string;
   instagramLink?: string;
+  expired?: boolean;
 }
 
 const announcements: Announcement[] = [
+  {
+    title: 'CC Club Meetups',
+    startDate: 'March 3, 2026',
+    endDate: 'December 31, 2026',
+    icon: require('../../assets/cc-club-logo.png'),
+    whatsappLink: 'https://chat.whatsapp.com/FVLJK8eqKzUKY7oUfnymD5?mode=hqcthdi',
+    instagramLink: 'https://www.instagram.com/carioca_coastal_club',
+  },
   {
     title: 'Carnival Hackaton',
     startDate: 'February 2, 2026',
@@ -25,13 +34,7 @@ const announcements: Announcement[] = [
     icon: require('../../assets/logo-text-pink.png'),
     whatsappLink: 'https://chat.whatsapp.com/BlM8NsH1PgJ3B3FTBUUJz5?mode=gi_t',
     instagramLink: 'https://www.instagram.com/carioca_coastal_club',
-  },
-  {
-    title: 'CC Club Meetups',
-    startDate: 'March 3, 2026',
-    endDate: 'December 31, 2026',
-    icon: '🤝',
-    whatsappLink: 'https://chat.whatsapp.com/FVLJK8eqKzUKY7oUfnymD5?mode=hqcthdi',
+    expired: true,
   },
 ];
 
@@ -169,14 +172,20 @@ export function Announcements() {
       </Text>
       <View style={styles.announcementsList}>
         {announcements.map((announcement, index) => (
-          <View key={index} style={styles.announcementCard}>
+          <View key={index} style={[styles.announcementCard, announcement.expired && styles.announcementCardExpired]}>
+            {announcement.expired && (
+              <View style={styles.expiredBadge}>
+                <FontAwesome5 name="clock" size={11} color="#888" />
+                <Text style={styles.expiredBadgeText}>Expired</Text>
+              </View>
+            )}
             {announcement.icon && (
               typeof announcement.icon === 'string' ? (
-                <Text style={styles.announcementIcon}>{announcement.icon}</Text>
+                <Text style={[styles.announcementIcon, announcement.expired && styles.expiredOpacity]}>{announcement.icon}</Text>
               ) : (
-                <View style={styles.logoContainer}>
-                  <Image 
-                    source={announcement.icon} 
+                <View style={[styles.logoContainer, announcement.expired && styles.expiredOpacity]}>
+                  <Image
+                    source={announcement.icon}
                     style={styles.announcementLogo}
                     contentFit="contain"
                   />
@@ -184,49 +193,51 @@ export function Announcements() {
               )
             )}
             <View style={styles.announcementContent}>
-              <Text style={styles.announcementTitle}>{announcement.title}</Text>
+              <Text style={[styles.announcementTitle, announcement.expired && styles.expiredText]}>{announcement.title}</Text>
               <TouchableOpacity
-                onPress={() => handleAddToCalendar(announcement)}
-                activeOpacity={0.7}
+                onPress={() => !announcement.expired && handleAddToCalendar(announcement)}
+                activeOpacity={announcement.expired ? 1 : 0.7}
                 style={styles.dateContainer}
               >
-                <FontAwesome5 name="calendar-alt" size={14} color={theme.textSecondary} style={styles.calendarIcon} />
-                <Text style={styles.announcementDate}>
+                <FontAwesome5 name="calendar-alt" size={14} color={announcement.expired ? '#aaa' : theme.textSecondary} style={styles.calendarIcon} />
+                <Text style={[styles.announcementDate, announcement.expired && styles.expiredText]}>
                   {formatDateRange(announcement.startDate, announcement.endDate)}
                 </Text>
               </TouchableOpacity>
-              <View style={styles.buttonContainer}>
-                {announcement.instagramLink && (
-                  <View
-                    style={[
-                      styles.instagramButtonWrapper,
-                      Platform.OS === 'web' && {
-                        // @ts-ignore - React Native Web CSS properties
-                        background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
-                        backgroundColor: undefined,
-                      },
-                    ]}
-                  >
+              {!announcement.expired && (
+                <View style={styles.buttonContainer}>
+                  {announcement.instagramLink && (
+                    <View
+                      style={[
+                        styles.instagramButtonWrapper,
+                        Platform.OS === 'web' && {
+                          // @ts-ignore - React Native Web CSS properties
+                          background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
+                          backgroundColor: undefined,
+                        },
+                      ]}
+                    >
+                      <TouchableOpacity
+                        style={styles.instagramButton}
+                        onPress={() => handleOpenInstagram(announcement.instagramLink!)}
+                        activeOpacity={0.8}
+                      >
+                        <FontAwesome5 name="instagram" size={20} color="#FFFFFF" />
+                      </TouchableOpacity>
+                    </View>
+                  )}
+                  {announcement.whatsappLink && (
                     <TouchableOpacity
-                      style={styles.instagramButton}
-                      onPress={() => handleOpenInstagram(announcement.instagramLink!)}
+                      style={styles.joinButton}
+                      onPress={() => handleJoinWhatsApp(announcement.whatsappLink!)}
                       activeOpacity={0.8}
                     >
-                      <FontAwesome5 name="instagram" size={20} color="#FFFFFF" />
+                      <FontAwesome5 name="whatsapp" size={18} color={theme.bgPrimary} />
+                      <Text style={styles.joinButtonText}>{t.announcements.joinGroup}</Text>
                     </TouchableOpacity>
-                  </View>
-                )}
-                {announcement.whatsappLink && (
-                  <TouchableOpacity
-                    style={styles.joinButton}
-                    onPress={() => handleJoinWhatsApp(announcement.whatsappLink!)}
-                    activeOpacity={0.8}
-                  >
-                    <FontAwesome5 name="whatsapp" size={18} color={theme.bgPrimary} />
-                    <Text style={styles.joinButtonText}>{t.announcements.joinGroup}</Text>
-                  </TouchableOpacity>
-                )}
-              </View>
+                  )}
+                </View>
+              )}
             </View>
           </View>
         ))}
@@ -344,5 +355,35 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 44,
     height: 44,
+  },
+  announcementCardExpired: {
+    opacity: 0.6,
+    borderWidth: 1,
+    borderColor: theme.borderColor,
+    borderStyle: 'dashed',
+  },
+  expiredBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    backgroundColor: '#eee',
+    borderRadius: 12,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    marginBottom: 12,
+    gap: 4,
+  },
+  expiredBadgeText: {
+    fontSize: 11,
+    fontWeight: '600',
+    color: '#888',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  expiredOpacity: {
+    opacity: 0.5,
+  },
+  expiredText: {
+    color: '#aaa',
   },
 });

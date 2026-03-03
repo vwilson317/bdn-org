@@ -45,6 +45,15 @@ const LANDING_LINKS: LinkDef[] = [
     iconBg: '#E8FFF2',
   },
   {
+    id: 'cc-club-whatsapp',
+    label: 'CC Club WhatsApp Group',
+    sublabel: '@carioca_coastal_club meetups',
+    icon: 'whatsapp',
+    url: 'https://chat.whatsapp.com/FVLJK8eqKzUKY7oUfnymD5?mode=hqcthdi',
+    iconColor: '#25D366',
+    iconBg: '#E8FFF2',
+  },
+  {
     id: 'instagram',
     label: 'Instagram',
     sublabel: '@riodigitalnomads',
