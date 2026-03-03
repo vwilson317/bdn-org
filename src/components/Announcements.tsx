@@ -26,6 +26,13 @@ const announcements: Announcement[] = [
     whatsappLink: 'https://chat.whatsapp.com/BlM8NsH1PgJ3B3FTBUUJz5?mode=gi_t',
     instagramLink: 'https://www.instagram.com/carioca_coastal_club',
   },
+  {
+    title: 'CC Club Meetups',
+    startDate: 'March 3, 2026',
+    endDate: 'December 31, 2026',
+    icon: '🤝',
+    whatsappLink: 'https://chat.whatsapp.com/FVLJK8eqKzUKY7oUfnymD5?mode=hqcthdi',
+  },
 ];
 
 export function Announcements() {
